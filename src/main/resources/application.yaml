@@ -2,24 +2,26 @@ spring:
   application:
     name: spring-cloud-config-server
 server:
-  port: 80
+  port: 8080
 management:
+  server:
+    port: 8081
   endpoints:
     web:
       exposure:
         include: "health,info,metrics,bus-refresh"
---- #Kubernetes
+--- #Production
 spring:
   config:
     activate:
-      on-profile: kubernetes
+      on-profile: production
   cloud:
     config:
       server:
         git:
-          uri: ${GIT_URI}
-          username: ${GIT_USERNAME}
-          password: ${GIT_PASSWORD}
+          uri: ${CONFIG_GIT_URI}
+          username: ${CONFIG_GIT_USERNAME}
+          password: ${CONFIG_GIT_PASSWORD}
           default-label: main
           clone-on-start: true
           skipSslValidation: true

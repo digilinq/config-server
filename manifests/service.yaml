@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+spec:
+  selector:
+    app.kubernetes.io/name: config-server
+  ports:
+    - name: service
+      protocol: TCP
+      port: 8080
+      targetPort: service
+    - name: management
+      port: 8081
+      protocol: TCP
+      targetPort: management
+  type: ClusterIP
