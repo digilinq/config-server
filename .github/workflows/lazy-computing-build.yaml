@@ -27,7 +27,7 @@ jobs:
       java-version: ${{ needs.config.outputs.java-version }}
       maven-version: ${{ needs.config.outputs.maven-version }}
       artifact-name: 'Package'
-      artifact-path: 'web/target/*.jar'
+      artifact-path: 'target/*.jar'
       docker-file: 'deployment/Dockerfile'
 
   docker-container-registry:
