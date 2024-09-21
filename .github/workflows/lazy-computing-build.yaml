@@ -24,7 +24,8 @@ jobs:
     steps:
       - run: echo java version ${{ needs.config.outputs.java-version }}
       - run: echo maven version ${{ needs.config.outputs.maven-version }}
-      - run: echo deployment namespace ${{ needs.config.outputs.deployment-namespace }}
+      - name: deployment namespace ${{ needs.config.outputs.deployment-namespace }}
+        run: echo deployment namespace ${{ needs.config.outputs.deployment-namespace }}
       - run: echo namespace ${{ needs.config.outputs.deployment.namespace }}
       - run: echo deployment ${{ needs.config.outputs.deployment }}
 
