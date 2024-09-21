@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo deployment namespace ${{ needs.config.outputs.kubernetes-namespace }}
+      - run: echo deployment ${{ needs.config.outputs.deployment }}
 
   build:
     name: build
