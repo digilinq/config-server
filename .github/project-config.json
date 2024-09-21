@@ -4,5 +4,8 @@
   },
   "maven": {
     "version": "3.6.3"
+  },
+  "deployment": {
+    "namespace": "inf"
   }
 }
