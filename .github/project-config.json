@@ -1,0 +1,11 @@
+{
+  "java": {
+    "version": "17"
+  },
+  "maven": {
+    "version": "3.8.8"
+  },
+  "deployment": {
+    "namespace": "inf"
+  }
+}
