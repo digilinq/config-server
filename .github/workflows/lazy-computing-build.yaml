@@ -16,6 +16,14 @@ jobs:
   config:
     uses: digilinq/reusable-workflows/.github/workflows/project-configuration.yaml@v0.0.4-beta
 
+  diag:
+    name: diag
+    needs:
+      - config
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo namespace ${{ needs.config.outputs.deployment.namespace }}
+
   build:
     name: build
     needs:
