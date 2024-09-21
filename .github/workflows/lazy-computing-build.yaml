@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo namespace ${{ needs.config.outputs.deployment.namespace }}
+      - run: echo namespace ${{ needs.config.outputs.deployment-namespace }}
+      - run: echo deployment ${{ needs.config.outputs.deployment }}
 
   build:
     name: build
