@@ -22,9 +22,9 @@ jobs:
       - config
     runs-on: ubuntu-latest
     steps:
-      - run: echo deployment namespace ${{ needs.config.outputs.kubernetes-namespace }}
+      - run: echo kubernetes namespace ${{ needs.config.outputs.kubernetes-namespace }}
       - run: echo deployment ${{ needs.config.outputs.deployment }}
-      - run: echo deployment1 ${{ fromJSON(needs.config.outputs.deployment-json-object).namespace }}
+      - run: echo deployment.namespace ${{ fromJSON(needs.config.outputs.deployment-json-object).namespace }}
 
   build:
     name: build
