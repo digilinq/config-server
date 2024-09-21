@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo k8s namespace ${{ needs.config.outputs.kubernetes-namespace }}
+      - run: echo deployment namespace ${{ needs.config.outputs.deployment }}
       - run: echo deployment namespace ${{ fromJSON(needs.config.outputs.deployment).namespace }}
 
   build:
