@@ -24,7 +24,7 @@ jobs:
     steps:
       - run: echo deployment namespace ${{ needs.config.outputs.kubernetes-namespace }}
       - run: echo deployment ${{ needs.config.outputs.deployment }}
-      - run: echo deployment1 ${{ needs.config.outputs.deployment1 }}
+      - run: echo deployment1 ${{ fromJSON(needs.config.outputs.deployment1).namespace }}
 
   build:
     name: build
