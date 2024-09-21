@@ -5,6 +5,9 @@
   "maven": {
     "version": "3.8.8"
   },
+  "extra": {
+    "info": "212"
+  },
   "deployment": {
     "namespace": "inf"
   }
