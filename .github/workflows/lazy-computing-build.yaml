@@ -14,7 +14,7 @@ env:
 
 jobs:
   config:
-    uses: digilinq/reusable-workflows/.github/workflows/project-configuration.yaml@v0.0.7-beta
+    uses: digilinq/reusable-workflows/.github/workflows/project-configuration.yaml@v0.0.8-beta
 
   diag:
     name: diag
@@ -22,15 +22,13 @@ jobs:
       - config
     runs-on: ubuntu-latest
     steps:
-      - run: echo k8s namespace ${{ needs.config.outputs.kubernetes-namespace }}
-      - run: echo deployment namespace ${{ needs.config.outputs.deployment }}
       - run: echo deployment namespace ${{ fromJSON(needs.config.outputs.deployment).namespace }}
 
   build:
     name: build
     needs:
       - config
-    uses: digilinq/reusable-workflows/.github/workflows/build-maven-project.yaml@v0.0.7-beta
+    uses: digilinq/reusable-workflows/.github/workflows/build-maven-project.yaml@v0.0.8-beta
     with:
       runner: 'ubuntu-latest'
       ref: ${{ github.ref }}
@@ -42,7 +40,7 @@ jobs:
 
   docker-container-registry:
     name: image-specifications
-    uses: digilinq/reusable-workflows/.github/workflows/docker-image-specifications.yaml@v0.0.7-beta
+    uses: digilinq/reusable-workflows/.github/workflows/docker-image-specifications.yaml@v0.0.8-beta
     with:
       registry: ${{ vars.CONTAINER_REGISTRY }}
       namespace: ${{ vars.DOCKER_HUB_USERNAME }}
@@ -54,7 +52,7 @@ jobs:
       - config
       - build
       - docker-container-registry
-    uses: digilinq/reusable-workflows/.github/workflows/create-docker-image.yaml@v0.0.7-beta
+    uses: digilinq/reusable-workflows/.github/workflows/create-docker-image.yaml@v0.0.8-beta
     with:
       runner: 'ubuntu-latest'
       artifact-name: 'Package'
@@ -67,7 +65,7 @@ jobs:
     needs:
       - config
       - create-docker-image
-    uses: digilinq/reusable-workflows/.github/workflows/kubernetes-deploy.yaml@v0.0.7-beta
+    uses: digilinq/reusable-workflows/.github/workflows/kubernetes-deploy.yaml@v0.0.8-beta
     with:
       runner: 'ubuntu-latest'
       ref: ${{ github.ref }}
