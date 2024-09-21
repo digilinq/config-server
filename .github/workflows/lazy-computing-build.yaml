@@ -14,7 +14,7 @@ env:
 
 jobs:
   config:
-    uses: digilinq/reusable-workflows/.github/workflows/project-configuration.yaml@v0.0.4-beta
+    uses: digilinq/reusable-workflows/.github/workflows/project-configuration.yaml@v0.0.5-beta
 
   diag:
     name: diag
@@ -24,6 +24,7 @@ jobs:
     steps:
       - run: echo java version ${{ needs.config.outputs.java-version }}
       - run: echo maven version ${{ needs.config.outputs.maven-version }}
+      - run: echo extra info ${{ needs.config.outputs.extra-info }}
       - name: deployment namespace ${{ needs.config.outputs.deployment-namespace }}
         run: echo deployment namespace ${{ needs.config.outputs.deployment-namespace }}
       - run: echo namespace ${{ needs.config.outputs.deployment.namespace }}
@@ -33,7 +34,7 @@ jobs:
     name: build
     needs:
       - config
-    uses: digilinq/reusable-workflows/.github/workflows/build-maven-project.yaml@v0.0.4-beta
+    uses: digilinq/reusable-workflows/.github/workflows/build-maven-project.yaml@v0.0.5-beta
     with:
       runner: 'ubuntu-latest'
       ref: ${{ github.ref }}
@@ -45,7 +46,7 @@ jobs:
 
   docker-container-registry:
     name: image-specifications
-    uses: digilinq/reusable-workflows/.github/workflows/docker-image-specifications.yaml@v0.0.4-beta
+    uses: digilinq/reusable-workflows/.github/workflows/docker-image-specifications.yaml@v0.0.5-beta
     with:
       registry: ${{ vars.CONTAINER_REGISTRY }}
       namespace: ${{ vars.DOCKER_HUB_USERNAME }}
@@ -57,7 +58,7 @@ jobs:
       - config
       - build
       - docker-container-registry
-    uses: digilinq/reusable-workflows/.github/workflows/create-docker-image.yaml@v0.0.4-beta
+    uses: digilinq/reusable-workflows/.github/workflows/create-docker-image.yaml@v0.0.5-beta
     with:
       runner: 'ubuntu-latest'
       artifact-name: 'Package'
@@ -70,7 +71,7 @@ jobs:
     needs:
       - config
       - create-docker-image
-    uses: digilinq/reusable-workflows/.github/workflows/kubernetes-deploy.yaml@v0.0.4-beta
+    uses: digilinq/reusable-workflows/.github/workflows/kubernetes-deploy.yaml@v0.0.5-beta
     with:
       runner: 'ubuntu-latest'
       ref: ${{ github.ref }}
