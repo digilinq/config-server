@@ -22,6 +22,7 @@ jobs:
       - config
     runs-on: ubuntu-latest
     steps:
+      - run: echo java version ${{ needs.config.outputs.java-version }}
       - run: echo namespace ${{ needs.config.outputs.deployment.namespace }}
       - run: echo namespace ${{ needs.config.outputs.deployment-namespace }}
       - run: echo deployment ${{ needs.config.outputs.deployment }}
