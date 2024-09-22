@@ -14,8 +14,8 @@ spec:
         app: config-server
     spec:
       containers:
-        - name: users
-          image: docker.io/digilinq/config-server
+        - name: config-server
+          image: docker.io/lazycomputing/config-server
           envFrom:
             - configMapRef:
                 name: config-server-specifications
