@@ -1,6 +1,9 @@
 name: Create Tag
 
 on:
+  push:
+    branches:
+      - '*'
   workflow_dispatch:
     inputs:
       branch:
