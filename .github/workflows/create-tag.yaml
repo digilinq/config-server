@@ -60,8 +60,7 @@ jobs:
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           
           git fetch origin ${{ steps.vars.outputs.branch }}
-
           git checkout ${{ steps.vars.outputs.branch }}
 
-          git tag ${{ steps.vars.outputs.tag }}
+          git tag -a ${{ steps.vars.outputs.tag }} -m "Release ${{ steps.vars.outputs.tag }}"
           git push origin ${{ steps.vars.outputs.tag }}
