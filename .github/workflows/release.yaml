@@ -80,4 +80,8 @@ jobs:
             echo "Error: DOCKER_HUB_REPOSITORY is not set."
             exit 1
           fi
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: artifact
 
