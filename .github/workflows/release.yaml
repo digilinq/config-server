@@ -86,7 +86,6 @@ jobs:
           name: artifact
       - run: |
           ls -la
-          ls -la target
       - name: Extract artifact
         run: |          
           tar -xzf artifact.tgz
