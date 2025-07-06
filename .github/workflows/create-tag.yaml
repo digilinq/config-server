@@ -13,8 +13,8 @@ on:
 
   push:
     branches:
-      - '**'  # all branches
-
+      - 'master'
+      - 'main'
 jobs:
   create-tag:
     runs-on: ubuntu-latest
