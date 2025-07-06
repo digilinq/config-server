@@ -8,6 +8,10 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+-alpha[0-9]+'
       - 'v[0-9]+.[0-9]+.[0-9]+-beta[0-9]+'
       - 'v[0-9]+.[0-9]+.[0-9]+-M[0-9]+'
+  workflow_run:
+    workflows: [Create Tags]
+    types:
+      - completed
 jobs:
   print-event-info:
     runs-on: ubuntu-latest
