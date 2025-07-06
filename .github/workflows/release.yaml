@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "$GITHUB_CONTEXT"
   build:
-    name: Build maven project
+    name: Build Config Server version ${{ github.event.inputs.tag || github.ref_name }}
     runs-on: ubuntu-latest
     outputs:
       jar_name: ${{ steps.get-jar.outputs.jar_name }}
@@ -84,9 +84,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: artifact
-      - run: |
-          echo "Artifact downloaded successfully."
-          ls -l
+      - name: Extract artifact
+        run: |          
+          tar -xzf artifact.tgz
+          echo "Extracted artifact to staging directory"
+      - run: ls -la
+
 #      - name: Download artifact
 #        uses: actions/download-artifact@v4
 #        with:
