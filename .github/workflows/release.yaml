@@ -89,7 +89,6 @@ jobs:
       - name: Extract artifact
         run: |          
           tar -xzf artifact.tgz
-          cp target/${{ steps.get-jar.outputs.jar_name }} ./
           echo "Extracted artifact to staging directory"
       - run: |
           ls -la
