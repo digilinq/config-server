@@ -60,4 +60,24 @@ jobs:
         with:
           name: artifact
           path: staging
+  publish:
+    name: Publish docker image to Docker Hub
+    runs-on: ubuntu-latest
+    needs:
+      - build
+#    outputs:
+#      docker-image: ${{ steps.meta.outputs.tags }}
+    env:
+      CONTAINER_REGISTRY: ${{ vars.CONTAINER_REGISTRY }}
+      CONTAINER_REGISTRY_USERNAME: ${{ vars.DOCKER_HUB_USERNAME }}
+      CONTAINER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      NAMESPACE: ${{ vars.DOCKER_HUB_USERNAME }}
+      IMAGE_NAME: ${{ vars.DOCKER_HUB_REPOSITORY }}
+    steps:
+      - name: Validate required variables
+        run: |
+          if [ -z "${{ vars.DOCKER_HUB_REPOSITORY }}" ]; then
+            echo "Error: DOCKER_HUB_REPOSITORY is not set."
+            exit 1
+          fi
 
