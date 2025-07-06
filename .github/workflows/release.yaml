@@ -65,8 +65,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build
-    #    outputs:
-    #      docker-image: ${{ steps.meta.outputs.tags }}
+    outputs:
+      docker-image: ${{ steps.meta.outputs.tags }}
     env:
       CONTAINER_REGISTRY: ${{ vars.CONTAINER_REGISTRY }}
       CONTAINER_REGISTRY_USERNAME: ${{ vars.DOCKER_HUB_USERNAME }}
@@ -85,7 +85,7 @@ jobs:
         with:
           name: artifact
       - name: Extract artifact
-        run: |          
+        run: |
           tar -xzf artifact.tgz
           echo "Extracted artifact to staging directory"
       - run: |
@@ -111,10 +111,10 @@ jobs:
           tags: |
             type=semver,pattern={{major}},value=${{ inputs.version }}                     
             type=semver,pattern={{major}}.{{minor}},value=${{ inputs.version }}
+            type=semver,pattern={{version}},value=${{ inputs.tag || github.ref_name }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') }}
           flavor: |
             latest=false
-#            type=semver,pattern={{version}},value=${{ inputs.tag || github.ref_name }}
-#            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') }}
 #            type=ref,event=pr
 #            type=ref,event=branch,suffix=-{{ sha }}
 #            type=semver,pattern={{version}},value=${{ inputs.version }}
