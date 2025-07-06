@@ -141,6 +141,10 @@ jobs:
           method: service-account
           k8s-url: ${{ secrets.KUBERNETES_URL }}
           k8s-secret: ${{ secrets.KUBERNETES_SECRET }}
+      - run: |
+          ls -la
+      - run: |
+          ls -la manifests
       - name: Deploy to the Kubernetes cluster
         uses: azure/k8s-deploy@v5
         with:
