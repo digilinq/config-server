@@ -115,16 +115,16 @@ jobs:
 #            type=ref,event=pr
 #            type=ref,event=branch,suffix=-{{ sha }}
 #            type=semver,pattern={{version}},value=${{ inputs.version }}
-#      - name: Build and push Docker Image
-#        uses: docker/build-push-action@v6
-#        with:
-#          context: .
-#          file: ./Dockerfile
-#          push: ${{ github.event_name != 'pull_request' }}
-#          tags: ${{ steps.meta.outputs.tags }}
-#          labels: ${{ steps.meta.outputs.labels }}
-#          build-args: |
-#            JAR_FILE=${{ needs.build.outputs.jar_file_name }}
+      - name: Build and push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            JAR_FILE=${{ needs.build.outputs.jar_file_name }}
 #  deploy:
 #    name: Deploy to Kubernetes
 #    runs-on: ubuntu-latest
