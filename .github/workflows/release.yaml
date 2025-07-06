@@ -86,7 +86,7 @@ jobs:
           name: artifact
       - run: |
           echo "Artifact downloaded successfully."
-          ls -l staging
+          ls -l
 #      - name: Download artifact
 #        uses: actions/download-artifact@v4
 #        with:
