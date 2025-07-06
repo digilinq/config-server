@@ -92,9 +92,6 @@ jobs:
           echo "The built jar is ${{ needs.build.outputs.jar_name }}"
           echo "Copying JAR file to staging directory"
           cp target/${{ needs.build.outputs.jar_name }} .
-      - run: |
-          ls -la
-          ls -la target
       - name: Login to container repository
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
