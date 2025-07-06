@@ -1,5 +1,5 @@
 # Stage 2: Create minimal runtime image
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:17-jre
 
 # Declare the ARG with a default value
 ARG JAR_FILE
