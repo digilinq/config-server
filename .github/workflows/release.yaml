@@ -150,6 +150,5 @@ jobs:
           manifests: |
             manifests/deployment.yaml
             manifests/service.yaml
-            manifests/ingress.yaml
           images: |
             ${{ needs.publish.outputs.docker-image }}
