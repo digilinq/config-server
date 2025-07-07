@@ -85,10 +85,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: artifact
-      - run: |
-          ls -la
-      - run: |
-          ls -la staging
 #      - name: Extract artifact
 #        run: |
 #          tar -xzf artifact.tgz
