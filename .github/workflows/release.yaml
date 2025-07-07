@@ -87,6 +87,7 @@ jobs:
           name: artifact
       - run: |
           ls -la
+      - run: |
           ls -la staging
 #      - name: Extract artifact
 #        run: |
