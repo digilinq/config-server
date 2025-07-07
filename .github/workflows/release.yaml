@@ -53,9 +53,10 @@ jobs:
       - name: Use final jar name
         run: |
           echo "The built jar is ${{ steps.get-jar.outputs.jar_name }}"
-      - run: mkdir staging && tar zcvf artifact.tgz $(find . -name "${{ steps.get-jar.outputs.jar_name }}" -exec dirname {} \;)
-      - run: cp artifact.tgz staging
+#      - run: mkdir staging && tar zcvf artifact.tgz $(find . -name "${{ steps.get-jar.outputs.jar_name }}" -exec dirname {} \;)
+#      - run: cp artifact.tgz staging
       - run: cp ci/Dockerfile staging
+      - run: find . -type f -name "${{ steps.get-jar.outputs.jar_name }}" -exec cp {} staging \;
       - uses: actions/upload-artifact@v4
         with:
           name: artifact
@@ -84,6 +85,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: artifact
+      - run: ls -la
       - name: Extract artifact
         run: |
           tar -xzf artifact.tgz
@@ -141,10 +143,6 @@ jobs:
           method: service-account
           k8s-url: ${{ secrets.KUBERNETES_URL }}
           k8s-secret: ${{ secrets.KUBERNETES_SECRET }}
-      - run: |
-          ls -la
-      - run: |
-          ls -la manifests
       - name: Deploy to the Kubernetes cluster
         uses: azure/k8s-deploy@v5
         with:
