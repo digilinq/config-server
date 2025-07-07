@@ -55,7 +55,7 @@ jobs:
           echo "The built jar is ${{ steps.get-jar.outputs.jar_name }}"
 #      - run: mkdir staging && tar zcvf artifact.tgz $(find . -name "${{ steps.get-jar.outputs.jar_name }}" -exec dirname {} \;)
 #      - run: cp artifact.tgz staging
-      - run: cp ci/Dockerfile staging
+      - run: mkdir staging && cp ci/Dockerfile staging
       - run: find . -type f -name "${{ steps.get-jar.outputs.jar_name }}" -exec cp {} staging \;
       - uses: actions/upload-artifact@v4
         with:
