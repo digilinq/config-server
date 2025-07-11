@@ -1,0 +1,69 @@
+name: Create Tags
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to tag'
+        required: true
+        default: 'main'
+      tag:
+        description: 'Tag name (e.g., v1.2.3)'
+        required: true
+
+  push:
+    branches:
+      - 'master'
+      - 'main'
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # needed to create tags
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17' # or your project version
+
+      - name: Determine tag and branch
+        id: vars
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Triggered manually"
+            echo "branch=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "Triggered by push"
+            # Extract version from Maven pom.xml
+            VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+            echo "Extracted version: $VERSION"
+            echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+            echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Print info
+        run: |
+          echo "Branch: ${{ steps.vars.outputs.branch }}"
+          echo "Tag: ${{ steps.vars.outputs.tag }}"
+          echo "GitHub Actor: ${{ github.actor }}"
+          echo "GitHub Repository: ${{ github.repository }}"
+
+      - name: Create tag
+        env:
+          PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          
+          git fetch origin ${{ steps.vars.outputs.branch }}
+          git checkout ${{ steps.vars.outputs.branch }}
+
+          git tag -a ${{ steps.vars.outputs.tag }} -m "Release ${{ steps.vars.outputs.tag }}"
+          git push origin ${{ steps.vars.outputs.tag }}
