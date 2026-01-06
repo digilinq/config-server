@@ -8,6 +8,7 @@ jobs:
   build:
     uses: digilinq/reusable-workflows/.github/workflows/build-maven-project.yaml@v1.0.0
     with:
+      runner: 'ubuntu-latest'
       java-version: '17'
       ref: ${{ github.ref }}
       artifact-name: 'my-artifact'
