@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    uses: digilinq/reusable-workflows/.github/workflows/build-maven-project.yaml@v1.0.8
+    uses: digilinq/reusable-workflows/.github/workflows/build-maven-project.yaml@v1.0.9
     with:
       runner: 'ubuntu-latest'
       java-version: '17'
