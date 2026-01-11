@@ -11,4 +11,5 @@ jobs:
       runner: 'ubuntu-latest'
       java-version: '17'
       ref: ${{ github.ref }}
+      docker-file: './Dockerfile'
     secrets: inherit
