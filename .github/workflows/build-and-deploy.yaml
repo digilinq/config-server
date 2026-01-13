@@ -17,14 +17,15 @@ jobs:
   publish:
     needs:
       - build
-    uses: digilinq/reusable-workflows/.github/workflows/publish-docker-image.yaml@v1.0.11
+    uses: digilinq/reusable-workflows/.github/workflows/publish-docker-image.yaml@v1.0.12
     with:
       runner: 'ubuntu-latest'
       container-registry: 'docker.io'
-      namespace: ${{ vars.DOCKER_HUB_USERNAME }}
-      image-name: 'config-server'
-      username: ${{ vars.DOCKER_HUB_USERNAME }}
-      password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      docker-image-namespace: ${{ vars.DOCKER_HUB_USERNAME }}
+      docker-image-name: 'config-server'
+      container-registry-username: ${{ vars.DOCKER_HUB_USERNAME }}
+    secrets:
+      container-registry-password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
 
 
