@@ -17,7 +17,7 @@ jobs:
   publish:
     needs:
       - build
-    uses: digilinq/reusable-workflows/.github/workflows/publish-docker-image.yaml@v1.0.13
+    uses: digilinq/reusable-workflows/.github/workflows/publish-docker-image.yaml@v1.0.14
     with:
       runner: 'ubuntu-latest'
       container-registry: 'docker.io'
