@@ -27,5 +27,20 @@ jobs:
     secrets:
       container-registry-password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-
+  deploy:
+    needs:
+      - build
+      - publish
+    uses: digilinq/reusable-workflows/.github/workflows/kubernetes-deploy.yaml@v1.0.13
+    with:
+      runner: 'ubuntu-latest'
+      ref: ${{ github.ref }}
+      namespace: 'test1'
+      manifests: |
+        manifests/deployment.yaml
+        manifests/service.yaml
+      image: ${{ needs.publish.outputs.docker-image }}
+    secrets:
+      kubernetes-url: ${{ secrets.KUBERNETES_URL }}
+      kubernetes-secret: ${{ secrets.KUBERNETES_SECRET }}
 
