@@ -1,0 +1,36 @@
+name: Deploy to Kubernetes manually
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Which ref to check out'
+        required: false
+        type: string
+        default: 'main'
+      docker_image:
+        description: 'Docker image to deploy'
+        required: true
+        type: string
+      replicas:
+        description: 'Number of replicas'
+        required: true
+        type: number
+      namespace:
+        description: 'Kubernetes namespace'
+        required: true
+        type: string
+jobs:
+  deploy:
+    uses: digilinq/reusable-workflows/.github/workflows/kubernetes-deploy.yaml@v1
+    with:
+      runner: 'ubuntu-latest'
+      ref: ${{ github.ref }}
+      docker-images: ${{ github.event.inputs.docker_image }}
+      namespace: ${{ github.event.inputs.namespace }}
+      manifests: |
+        manifests/deployment.yaml
+        manifests/service.yaml
+    secrets:
+      kubernetes-url: ${{ secrets.KUBERNETES_URL }}
+      kubernetes-secret: ${{ secrets.KUBERNETES_SECRET }}
+
